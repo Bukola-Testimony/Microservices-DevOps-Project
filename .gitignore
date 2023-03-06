@@ -1,0 +1,6 @@
+/Terraform-aws-eks/.terraform/
+/Terraform-aws-eks/terraform.tfstate
+/Terraform-aws-eks/terraform.tfstate.backup
+/Terraform-aws-eks/.terraform.lock.hcl
+
+
