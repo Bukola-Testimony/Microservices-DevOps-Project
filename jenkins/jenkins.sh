@@ -7,7 +7,7 @@ export TF_VAR_vpc_id=$VPC_ID
 export TF_VAR_cluster_name=$CLUSTER_NAME
 
 #go into to the terraform path
-cd ${WORKSPACE}/DevOps_Project_3/Terraform
+cd ${WORKSPACE}/Terraform-aws-eks
 
 #replacing the cluster name field in backend.tf file
 sed -i "s/ngg_cluster_name/$CLUSTER_NAME/g" backend.tf
@@ -36,9 +36,9 @@ helm upgrade --install lb-controller eks/aws-load-balancer-controller --set clus
 
 
 # Apply sock-shop kubernetes manifest deployment
-cd ${WORKSPACE}/Kubernetes/complete-demo.yml
+cd ${WORKSPACE}/microservices-demo/deploy/Kubernetes/complete-demo.yaml
 
-# Apply wy-webapp kubernetes manifest deployment
+# Apply MY-webapp kubernetes manifest deployment
 
 
 
