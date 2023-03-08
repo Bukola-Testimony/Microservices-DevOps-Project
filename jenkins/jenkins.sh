@@ -10,7 +10,7 @@ export TF_VAR_cluster_name=$CLUSTER_NAME
 cd ${WORKSPACE}/Terraform-aws-eks
 
 #replacing the cluster name field in backend.tf file
-sed -i "s/ngg_cluster_name/$CLUSTER_NAME/g" backend.tf
+# sed -i "s/ngg_cluster_name/$CLUSTER_NAME/g" backend.tf
 
 #running terraform command
 terraform init    
@@ -37,6 +37,7 @@ helm upgrade --install lb-controller eks/aws-load-balancer-controller --set clus
 
 # Apply sock-shop kubernetes manifest deployment
 cd ${WORKSPACE}/microservices-demo/deploy/Kubernetes/complete-demo.yaml
+kubectl apply -f complete-demo.yaml
 
 # Apply MY-webapp kubernetes manifest deployment
 
