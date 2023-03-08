@@ -1,3 +1,9 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,6 +11,7 @@ metadata:
   labels:
     app: myweb
   name: myweb
+  namespace: web
 spec:
   replicas: 1
   selector:
@@ -21,7 +28,12 @@ spec:
       - image: bukola01/portfolio
         name: portfolio
         resources: {}
+        ports:
+        - containerPort: 80
+          name: myweb
 status: {}
+---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -29,6 +41,7 @@ metadata:
   labels:
     app: myweb
   name: myweb
+  namespace: web
 spec:
   ports:
   - port: 80
@@ -39,52 +52,56 @@ spec:
   type: LoadBalancer
 status:
   loadBalancer: {}
-
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myweb-db
   labels:
-    name: myweb-db
-  namespace: sock-shop
+    app: db
+  name: db
+  namespace: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: myweb-db
+      app: db
   template:
     metadata:
       labels:
-        name: myweb-db
+        app: db
     spec:
       containers:
-      - name: myweb-db
-        image: mysql:5.0
+      - image: postgres:15-alpine
+        name: postgres
         env:
-          - name: MYSQL_ROOT_PASSWORD
-            value: web
-          - name: MYSQL_DATABASE
-            value: web
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
         ports:
-        - name: mysql
-          containerPort: 3306
-      nodeSelector:
-        beta.kubernetes.io/os: linux
+        - containerPort: 5432
+          name: postgres
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: db-data
+      volumes:
+      - name: db-data
+        emptyDir: {} 
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: myweb-db-service
   labels:
-    name: myweb-db-service
-  namespace: sock-shop
+    app: db
+  name: db
+  namespace: web
 spec:
+  type: ClusterIP
   ports:
-    # the port that this service should serve on
-  - port: 3306
-    targetPort: 3306
+  - name: "db-service"
+    port: 5432
+    targetPort: 5432
   selector:
-    name: myweb-db-service
-
-
+    app: db
