@@ -1,8 +1,8 @@
 
 resource "aws_security_group" "EKS_SG" {
-  name        = "${var.cluster_name}-sg"
-  description = "${var.cluster_name}-sg"
-  vpc_id      = var.vpc_id
+  name        = "Eks-sg"
+  description = "security group for eks"
+  vpc_id      = "vpc-0b5aabe280121437d"
 
 
   ingress {
@@ -11,8 +11,6 @@ resource "aws_security_group" "EKS_SG" {
     to_port     = 0
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = [local.workstation-external-cidr]
-
   }
 
 
@@ -25,6 +23,6 @@ resource "aws_security_group" "EKS_SG" {
   }
 
   tags = {
-    Name = "${var.cluster_name}-sg"
+    Name = "Eks-sg"
   }
 }
