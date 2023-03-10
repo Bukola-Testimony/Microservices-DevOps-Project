@@ -26,7 +26,7 @@ module "eks" {
     }
 
     tags = {
-      name        = "my-eks-cluster"
+      name        = "Eks-cluster"
       environment = "development"
     }
 

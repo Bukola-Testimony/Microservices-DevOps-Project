@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     dir('microservices-demo/deploy/kubernetes') {
-                        sh "aws eks update-kubeconfig --name Eks-cluster"
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f complete-demo.yaml"
                     }
                 }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     dir('my-webapp') {
-                        sh "aws eks update-kubeconfig --name Eks-cluster"
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f web-deployment.yml"
                     }
                 }
