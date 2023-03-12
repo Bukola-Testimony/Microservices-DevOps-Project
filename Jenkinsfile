@@ -46,7 +46,7 @@ pipeline {
                 script {
                     dir('microservices-demo/deploy/kubernetes') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
-                        sh "kubectl apply -f microservices-demo/deploy/kubernetes/manifests-monitoring/"
+                        sh "kubectl apply -f microservices-demo/deploy/kubernetes/manifests-monitoring/*"
                         sh"kubectl get deployment -n monitoring"
                         sh"kubectl get svc -n monitoring"
                     }
