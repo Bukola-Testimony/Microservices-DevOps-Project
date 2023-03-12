@@ -44,7 +44,7 @@ pipeline {
         stage("Deploy prometheus monitoring application to EKS") {
             steps {
                 script {
-                    dir('microservices-demo/deploy/kubernetes') {
+                    dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f microservices-demo/deploy/kubernetes/manifests-monitoring/*"
                         sh"kubectl get deployment -n sock-shop"
