@@ -8,8 +8,8 @@ resource "aws_eks_cluster" "eksdemo" {
 
 
   vpc_config {
-    subnet_ids         = ["subnet-0f2aa9b49b9306cdf", "subnet-066de48ff35b4a0d3"]
-    security_group_ids = ["sg-0ec80e38b5c6215ab"]
+    subnet_ids         = ["subnet-0d8980b12ca3a8d04", "subnet-0cb791b7ea81e5a66"]
+    security_group_ids = ["sg-051ed6e3ac8fedd90"]
   }
 
   depends_on = [
