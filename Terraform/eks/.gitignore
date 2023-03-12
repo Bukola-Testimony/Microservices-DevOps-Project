@@ -7,3 +7,5 @@
 # tf state files
 *.tfstate
 *.tfstate.*
+
+provider.tf*
