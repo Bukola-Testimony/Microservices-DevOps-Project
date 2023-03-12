@@ -6,7 +6,7 @@ resource "aws_eks_node_group" "eksnode" {
   cluster_name    = aws_eks_cluster.eksdemo.name
   node_group_name = "eksnodegroup"
   node_role_arn   = aws_iam_role.eksnoderole.arn
-  instance_types  = ["t2.medium"]
+  instance_types  = ["t2.large"]
   subnet_ids      = ["subnet-0d8980b12ca3a8d04", "subnet-0cb791b7ea81e5a66"]
 
 

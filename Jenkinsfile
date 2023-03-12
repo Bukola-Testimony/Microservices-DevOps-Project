@@ -23,16 +23,32 @@ pipeline {
                     dir('microservices-demo/deploy/kubernetes') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f complete-demo.yaml"
+                        sh"kubectl get deployment -n sock-shop"
+                        sh"kubectl get svc -n sock-shop"
                     }
                 }
             }
         }
-        stage("Deploy my-app to EKS") {
+        stage("Deploy my web-application to EKS") {
             steps {
                 script {
                     dir('my-webapp') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f web-deployment.yml"
+                        sh"kubectl get deployment -n web"
+                        sh"kubectl get svc -n web"
+                    }
+                }
+            }
+        }
+        stage("Deploy prometheus monitoring application to EKS") {
+            steps {
+                script {
+                    dir('microservices-demo/deploy/kubernetes') {
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
+                        sh "kubectl apply -f microservices-demo/deploy/kubernetes/manifests-monitoring/"
+                        sh"kubectl get deployment -n monitoring"
+                        sh"kubectl get svc -n monitoring"
                     }
                 }
             }
