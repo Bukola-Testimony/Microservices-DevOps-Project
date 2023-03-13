@@ -56,15 +56,13 @@ pipeline {
         stage("endpoints") {
             steps {
                 script {
-                     {  sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
-                        sh "kubectl apply -f manifiest-monitoring-complete.yaml"
-                        sh "sleep 120s"
-                        sh "kubectl get deployment -n sock-shop"
+                     {  sh "kubectl get deployment -n sock-shop"
                         sh "kubectl get svc -n sock-shop"
                         sh "kubectl get deployment -n web"
                         sh "kubectl get svc -n web"
+                        sh "sleep 120s"
                         sh "kubectl get deployment -n monitoring"
-                        sh "kubectl get svc -n monitoring"
+                        sh "kubectl get svc -n monitoring"                        
                     }
                 }
             }
