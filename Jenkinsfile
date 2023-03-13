@@ -47,26 +47,27 @@ pipeline {
                         sh "kubectl get svc -n sock-shop"
                         sh "kubectl get deployment -n web"
                         sh "kubectl get svc -n web"
+                        sh "sleep 120s"
                         sh "kubectl get deployment -n monitoring"
                         sh "kubectl get svc -n monitoring"
                     }
                 }
             }
         }
-        stage("endpoints") {
-            steps {
-                script {
-                     {  
-                        sh "kubectl get deployment -n sock-shop"
-                        sh "kubectl get svc -n sock-shop"
-                        sh "kubectl get deployment -n web"
-                        sh "kubectl get svc -n web"
-                        sh "sleep 120s"
-                        sh "kubectl get deployment -n monitoring"
-                        sh "kubectl get svc -n monitoring"                        
-                    }
-                }
-            }
-        }
+        // stage("endpoints") {
+        //     steps {
+        //         script {
+        //              {  
+        //                 sh "kubectl get deployment -n sock-shop"
+        //                 sh "kubectl get svc -n sock-shop"
+        //                 sh "kubectl get deployment -n web"
+        //                 sh "kubectl get svc -n web"
+        //                 sh "sleep 120s"
+        //                 sh "kubectl get deployment -n monitoring"
+        //                 sh "kubectl get svc -n monitoring"                        
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
