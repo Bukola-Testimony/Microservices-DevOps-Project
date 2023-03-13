@@ -56,7 +56,8 @@ pipeline {
         stage("endpoints") {
             steps {
                 script {
-                     {  sh "kubectl get deployment -n sock-shop"
+                     {  
+                        sh "kubectl get deployment -n sock-shop"
                         sh "kubectl get svc -n sock-shop"
                         sh "kubectl get deployment -n web"
                         sh "kubectl get svc -n web"
