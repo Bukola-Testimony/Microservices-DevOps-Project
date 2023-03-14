@@ -13,6 +13,23 @@ resource "aws_subnet" "deployment-subnet-1" {
     Name = "${var.env_prefix}-subnet-1"
   }
 }
+resource "aws_subnet" "deployment-subnet-2" {
+  vpc_id            = aws_vpc.deployment-vpc.id
+  cidr_block        = var.subnet_cidr_block
+  availability_zone = var.avail_zone2
+  tags = {
+    Name = "${var.env_prefix}-subnet-2"
+  }
+}
+resource "aws_subnet" "deployment-subnet-3" {
+  vpc_id            = aws_vpc.deployment-vpc.id
+  cidr_block        = var.subnet_cidr_block
+  availability_zone = var.avail_zone3
+  tags = {
+    Name = "${var.env_prefix}-subnet-3"
+  }
+}
+
 
 resource "aws_internet_gateway" "deployment-igw" {
   vpc_id = aws_vpc.deployment-vpc.id
