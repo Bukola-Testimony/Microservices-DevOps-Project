@@ -1,0 +1,197 @@
+JENKINS-GITHUB-TERRAFORM-HELM-KUBERNETES
+
+1. #Edit the inbound security group
+Type: CustomTCP
+Port range: 8080
+
+2. copy the public IP of the instance to your browser and append port 8080
+e.g 192.34.54.20:8080
+
+3. This should open the jenkins page 
+
+4. To unlock, copy the path specified on the dashboard to the instance terminal. This will retun the unlock code.
+eg /var/lib/jenkins/secrets/initialAdminPassword
+
+5. On the terminal, run:
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+Output: 95c29cd1d4a54943a8c9c05edcf13a8c
+Note: remember to include "sudo cat" before the unlock code path
+
+sudo usermod -a -G root jenkins
+
+
+6. In the logged in page (customize jenkins), select: select plugins to install
+
+7. On the page displayed, click on the install button
+
+
+8.Click on: skip and continue as admin
+click onsave again
+
+9. Jenkins is ready!
+
+10. username: admin (server-1-jenkins)
+    pws: 95c29cd1d4a54943a8c9c05edcf13a8c
+
+11. username: admin (server-2-Jenkins-project)
+    pws: f20a4205e9914693ac753ae167de0595
+
+
+
+http://100.26.238.71:8080/
+11. YOU are now on Jenkins welcome page
+
+------------------------------------------------
+INSTALLATION OF SOFTWARES
+----------------------------------------------
+1. Install git
+sudo yum install git
+
+2. install helm
+curl -L https://git.io/get_helm.sh | bash -s -- --version v3.8.2
+helm version --short
+
+3.Istall Terraform
+Step1 : Install yum-config-manager to manage your repositories.
+sudo yum install -y yum-utils
+
+Step2 : Use yum-config-manager to add the official HashiCorp Linux repository.
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+Step3 : Install Terraform from the new repository.
+sudo yum -y install terraform
+
+Step4 : Verify that the installation
+terraform -version
+
+4. Install Kubernetes
+Step1 : Download the kubectl binary
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.23.13/2022-10-31/bin/linux/amd64/kubectl
+
+Step2 : Apply execute permissions to the binary.
+chmod +x ./kubectl
+
+Step3 : Copy the binary to a folder in your PATH.
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+sudo mkdir -p /var/lib/jenkins/bin && sudo cp ./kubectl /var/lib/jenkins/bin/kubectl && export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/var/lib/jenkins/bin
+
+Step4 : Verify the installation
+kubectl version --short --client
+kubectl version --output=yaml
+
+-----------------------------------------------------
+INSTALLATION COMPLETE
+--------------------------------------------------------
+
+JENKINS WELCOME PAGE
+
+1. click on + new item to create new item
+2. Name your project and save e.g: My-practice-exam-project
+3. click on "freestyle project" and click on "ok"
+4. on the next page (configure page), click on "this project is going to be parameterized"
+5.
+6. click on Git, and enter the git url
+
+
+---------------------------------
+SET UP GITHUB CREDENTIALS
+--------------------------------
+1. go to manage jenkins --> manage credentials --> global --> new credentials 
+2. enter username, password and ID(can be anything e.g My-github)
+Github username:Bukola-Testimony
+psw:  bukola1927
+Github-Access-Token: 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
+---------------------------------------------------------------
+
+
+---------------------------------
+SET UP AWS CREDENTIALS
+--------------------------------
+1. go to manage jenkins --> manage credentials --> global --> new credentials-->secret text 
+2. enter username, password and ID(can be anything e.g My-github)
+[default]
+ID --> AWS_ACCESS_KEY_ID 
+SECRET --> AKIAU4P6ZFDWUQIFFKEJ 
+
+ID --> AWS_SECRET_ACCESS_KEY
+SECRET --> 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
+
+---------------------------------------------------------------
+
+
+--------------------------------------------
+A QUICK CHECK ON WINDOWS POWERSHELL
+--------------------------------------------
+PS C:\Users\user> type .aws/credentials
+[default]
+aws_access_key_id = AKIAU4P6ZFDWUQIFFKEJ
+aws_secret_access_key =  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
+----------------------------------------------------------------
+
+
+
+==========TOKEN========================
+Generate Jenkins Authentication Token (Admin) 
+from dashboard - user - configure - generate token -apply-save
+Token: 11e5be719d24fe5484705a5732b1eee1ab
+
+=============CRUMB======================
+To request crumb:
+curl -s -u admin:95c29cd1d4a54943a8c9c05edcf13a8c  http://100.26.238.71:8080/crumbIssuer/api/json
+"crumb":"bcf390aa55abb8cc5a35cd5a34cc6420f0f7d3d642038216644a1546cbb857b5"
+
+======TROUBLESHOOT JAVA==================
+
+1. To check how many java versions on the system and select one
+sudo update-alternatives --config java
+openjdk version "11.0.18" 2023-01-17 LTS
+2. uninstall jenkins
+   sudo yum remove jenkins
+3. sudo yum install jenkins -y
+   sudo systemctl enable jenkins
+   sudo systemctl start jenkins
+   sudo systemctl status jenkins
+-------------------------------------------------------
+
+
+s3 bucket name: exam-details01
+key1 --> exam-eks/terraform.tfstate
+key2 --> practice-eks/terraform.tfstate
+
+aws sts get-caller-identity
+bucket-arn: arn:aws:s3:::exam-details01
+---------------------------------------------------------------------
+
+
+---------------------------------
+INSTANCE IP ADDRESS CAPACITY
+------------------------------
+
+t2.micro		2	
+t2.small		4	
+t2.medium		6
+t3.small		4	
+t3.medium		6	
+t3.large		12
+
+
+--------------------------------------
+NUMBER OF PODS PER EKS INSTANCE 
+NOTE: 3 of these pods are system pods  
+---------------------------------------
+t2.large 35
+t2.medium 17
+t2.micro 4
+t2.nano 4
+t2.small 11
+t2.xlarge 44
+t3.2xlarge 58
+t3.large 35
+t3.medium 17
+t3.micro 4
+t3.nano 4
+t3.small 11
+
+
+
+
