@@ -7,7 +7,7 @@ resource "aws_eks_node_group" "eksnode" {
   node_group_name = "eksnodegroup"
   node_role_arn   = aws_iam_role.eksnoderole.arn
   instance_types  = ["t2.large"]
-  subnet_ids      = ["subnet-0d8980b12ca3a8d04", "subnet-0cb791b7ea81e5a66"]
+  subnet_ids      = ["subnet-00e4bc5024c87a9c9", "subnet-0a87273729a388447"]
 
 
   tags = {
@@ -15,7 +15,7 @@ resource "aws_eks_node_group" "eksnode" {
   }
 
   scaling_config {
-    desired_size = 2
+    desired_size = 1
     max_size     = 2
     min_size     = 1
   }

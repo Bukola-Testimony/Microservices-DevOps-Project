@@ -320,7 +320,7 @@ spec:
     protocol: TCP
     port: 9090
     targetPort: 9090
-    nodePort: 31090
+    nodePort: 30900
 
 
 ---
