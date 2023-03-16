@@ -43,8 +43,8 @@ pipeline {
                     dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f 00-monitoring-ns.yaml"
-                        sh "kubectl apply \$(ls *-prometheus-*.yaml | awk '{ print \"-f \" \${1} }')"
-                        sh "kubectl apply \$(ls *-grafana-*.yaml | awk '{ print \"-f \" \${1} }' | grep -v grafana-import)"
+                        sh "kubectl apply $(ls *-prometheus-*.yaml | awk '{print \"-f \" $1}')"
+                        sh "kubectl apply $(ls *-grafana-*.yaml | awk '{ print \"-f \" $1 }' | grep -v grafana-import)"
                         sh "sleep 60s"
                         sh "kubectl apply -f 23-grafana-import-dash-batch.yaml"
                         sh "kubectl get deployment -n sock-shop"
@@ -54,16 +54,6 @@ pipeline {
                         sh "sleep 120s"
                         sh "kubectl get deployment -n monitoring"
                         sh "kubectl get svc -n monitoring"
-                    }
-                }
-            }
-        }
-        stage("Deploy Helm chart to EKS") {
-            steps {
-                script {
-                    dir('my-webapp') {
-                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
-                        sh "kubectl apply -f "
                     }
                 }
             }
