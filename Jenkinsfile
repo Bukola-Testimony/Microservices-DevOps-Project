@@ -42,7 +42,7 @@ pipeline {
                 script {
                     dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
-                        sh "00-monitoring-ns.yaml"                    
+                        sh "kubectl apply -f 00-monitoring-ns.yaml"                    
                         sh "kubectl apply -f 01-prometheus-sa.yaml"
                         sh "kubectl apply -f 02-prometheus-cr.yaml"
                         sh "kubectl apply -f 03-prometheus-crb.yaml"
