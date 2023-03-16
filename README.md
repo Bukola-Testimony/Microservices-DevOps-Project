@@ -1,6 +1,1 @@
-# DevOps-Project
-## Devop
-
-Detail
-- pray
-- fast
+# DevOps Project
