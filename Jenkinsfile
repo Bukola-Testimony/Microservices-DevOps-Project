@@ -43,8 +43,8 @@ pipeline {
                     dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
                         sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
                         sh "kubectl apply -f 00-monitoring-ns.yaml"
-                        sh "kubectl apply -f $(ls *-prometheus-*.yaml)"
-                        sh "kubectl apply $(ls *-grafana-*.yaml | grep -v grafana-import)"
+                        sh "kubectl apply -f ${ls *-prometheus-*.yaml}"
+                        sh "kubectl apply ${ls *-grafana-*.yaml | grep -v grafana-import}"
                         sh "sleep 60s"
                         sh "kubectl apply -f 23-grafana-import-dash-batch.yaml"
                         sh "kubectl get deployment -n sock-shop"
