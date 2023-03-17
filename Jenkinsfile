@@ -75,11 +75,35 @@ pipeline {
         //         }
         //     }
         // }
-        stage("installing helm chart") {
+        stage("Deploy Helm chart") {
             steps {
-                sh "install.sh"
+                script {
+                    dir('microservices-demo/deploy/kubernetes/helm-chart/templates') {
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
+                        sh "kubectl apply -f front-end-dep.yaml"
+                        sh "kubectl apply -f cart-db-dep.yaml"
+                        sh "kubectl apply -f ingress.yaml"
+                        sh "kubectl apply -f loadtest-dep.yaml"
+                    }
+                }
+            }
+        }
+        stage("Deploy Helm chart") {
+            steps {
+                script {
+                    dir('microservices-demo/deploy/kubernetes/manifests-monitoring') {
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
+                        sh "kubectl apply -f chart.yml"
+                        sh "kubectl apply -f requirements.yml"
+                        sh "kubectl apply -f values.yml"
+                    }
+                }
             }
         }
     }
 }
  
+
+
+
+
