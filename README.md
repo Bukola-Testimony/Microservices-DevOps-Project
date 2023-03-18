@@ -2,7 +2,7 @@
 
 # CI/CD PROJECT: Deploying Kubernetes Applications with Terraform, AWS EKS And Jenkins Pipeline
 
-> ![Project Image](images\project-diagram.png)
+> ![Project Image](images/project-diagram.png)
 
 ## Table of content
 
@@ -116,13 +116,13 @@ Once everything runs successfully, you’ll see output of the ec2-instance IP
 Next, you will navigate over to the AWS console and you will be able to see the following:
 
 - VPC
-![Jenkin VPC](images\JENKINS\jenkins-vpc.png)
+![Jenkin VPC](images/JENKINS/jenkins-vpc.png)
 - subnets
-![Jenkin VPC](images\JENKINS\jenkins-subnet.png)
+![Jenkin VPC](images/JENKINS/jenkins-subnet.png)
 - security groups
-![Jenkin VPC](images\JENKINS\security-group.png)
+![Jenkin VPC](images/JENKINS/security-group.png)
 - ec2 instance tagged "dev-server"
-![Jenkin VPC](images\JENKINS\jenkins-instance.png)
+![Jenkin VPC](images/JENKINS/jenkins-instance.png)
 
 ## 3| Set up Jenkins Server
 
@@ -137,12 +137,12 @@ Next, you will navigate over to the AWS console and you will be able to see the 
 
 - This should open the Jenkins Getting started page.
 
-![](images\JENKINS\jenkins-unlock-page.png)
+![](images/JENKINS/jenkins-unlock-page.png)
 
 - SSH into your jenkins server either through your IDE or directly from aws console.
 
 - To unlock, copy the path specified on the Jenkins page, copy the code on the dashboard to your terminal.
-![](images\JENKINS\jenkins-unlock-page.png)
+![](images/JENKINS/jenkins-unlock-page.png)
 
 - On the terminal, run:
 
@@ -153,15 +153,15 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ```
 
-![](images\JENKINS\jenkins-unlock-code.png)
+![](images/JENKINS/jenkins-unlock-code.png)
 
 - enter the code in the text box and click on continue
 - On the next page, click on suggested pluggings. Allow the selected pluggins to run.
-![](images\JENKINS\jenkins-plugin-installation.png)
+![](images/JENKINS/jenkins-plugin-installation.png)
 
 - On the next page enter your user details and password.
  and viola! jenkins server is ready for use.
- ![](images\JENKINS\jenkins-is-ready.png)
+ ![](images/JENKINS/jenkins-is-ready.png)
 
 - Configure jenkins server with all the necesary credentials both for Github and AWS.
 ![](images/JENKINS/manage-credentials.png)
@@ -174,7 +174,7 @@ AWS_SECRET_ACCESS_KEY:Osie3yutegyu5vjnbn455Example
 AWS_DEFAULT_REGION: us-east-1
 Github Username and password
 ```
-![credentials](images\JENKINS\jenkins-credentials.png)
+![credentials](images/JENKINS/jenkins-credentials.png)
 
 
 <br>
@@ -185,12 +185,12 @@ Github Username and password
 Configure Jenkins Pipeline to use the Terraform configuration file and the AWS CLI to provision the Kubernetes cluster.
 Click on new item.
 
-![](images\JENKINS\jenkins-pipeline-new-item.png)
+![](images/JENKINS/jenkins-pipeline-new-item.png)
 
 - Give your project a name.
 Choose pipeline and click `OK` at the bottom of the page.
 
-![](images\JENKINS\pipeline.png)
+![](images/JENKINS/pipeline.png)
 
 - Add the github repository url to the pipeline. Indicate the Jenkinsfile and the Github branch. Save the job.
 - Push your code to a repository on Github.
@@ -213,21 +213,21 @@ Choose pipeline and click `OK` at the bottom of the page.
 
  Click on `Build now`. As the project rus you will see a stage view as shown below. You will also see the build number at the bottom under the `Build history` section.
 
-![](images\JENKINS\jenkins-pipeline-success.png)
+![](images/JENKINS/jenkins-pipeline-success.png)
 
 To see the console output and other information, click on the build number.
 
-![](images\JENKINS\jenkins-pipeline-console-output.png)
+![](images/JENKINS/jenkins-pipeline-console-output.png)
 
-![](images\JENKINS\pipeline-output2.png)
-![](images\JENKINS\pipeline-output3.png)
+![](images/JENKINS/pipeline-output2.png)
+![](images/JENKINS/pipeline-output3.png)
 
-![](images\JENKINS\jenkins-pipeline-steps.png)
+![](images/JENKINS/jenkins-pipeline-steps.png)
 
 
-![](images\JENKINS\jenkins-pipeline-myweb.png)
+![](images/JENKINS/jenkins-pipeline-myweb.png)
 
-![](images\JENKINS\jenkins-pipeline-microservices.png)
+![](images/JENKINS/jenkins-pipeline-microservices.png)
 
 
 <br>
