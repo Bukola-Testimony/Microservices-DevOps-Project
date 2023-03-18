@@ -23,7 +23,7 @@
 
  > ## Terraform
  >
->## HashiCorp Terraform is a tool for building, changing, and versioning infrastructure that has an open-source and enterprise version. Unlike AWS CloudFormation, which can only be used on AWS, Terraform is cloud agnostic and can be used to create multi-cloud infrastructure as well as on-prem
+>### HashiCorp Terraform is a tool for building, changing, and versioning infrastructure that has an open-source and enterprise version. Unlike AWS CloudFormation, which can only be used on AWS, Terraform is cloud agnostic and can be used to create multi-cloud infrastructure as well as on-prem
 
 <br>
 
@@ -39,7 +39,7 @@
 
 <br>
 
-> ### Separately, Kubernetes and Terraform are powerful and popular tools for DevOps operations. However, when used together, you will see even more benefits for container cluster management
+> ### Separately, Kubernetes and Terraform are powerful and popular tools for DevOps operations. However, when used together, you will see even more benefits for container cluster management.
 
 <br>
 <br>
@@ -91,7 +91,7 @@ This configuration creates a VPC along with subnets and security groups needed t
 - git
 - kubectl
 
-All these are needed for this project.
+All these dependencies are needed for this project.
 </p>
 The first step is to initialize the terraform backend by using the following command:
 
@@ -111,7 +111,7 @@ Finally, you will run the command terraform apply to apply the configuration.
 terraform plan
 ```
 
-Once everything runs successfully, you’ll see output of the ec2-instance IP
+Once everything runs successfully, you’ll see an output of the ec2-instance IP
 
 Next, you will navigate over to the AWS console and you will be able to see the following:
 
@@ -141,7 +141,7 @@ Next, you will navigate over to the AWS console and you will be able to see the 
 
 - SSH into your jenkins server either through your IDE or directly from aws console.
 
-- To unlock, copy the path specified on the Jenkins page, copy the code on the dashboard to your terminal.
+- To unlock, copy the code on the jenkins dashboard to your terminal.
 ![](images/JENKINS/jenkins-unlock-page.png)
 
 - On the terminal, run:
@@ -211,6 +211,48 @@ Choose pipeline and click `OK` at the bottom of the page.
 - Run the pipeline using the Jenkinsfile. You will find the file at the root of the folder in this repository. All the stages in th pipeline has been defined in the Jenkinsfile.
 - The configuration in the jenkinsfile will run the terraform file to build the eks clusters, deploy microservices application and my web application on the cluster using the manifests in the kubernete directory. It will also Expose the services of the applications and attach load balancers to each application. Finally It will output the load balancers' endpoints. 
 
+
+
+Here is an example of what the jenkins file looks like:
+
+```bash
+#!/usr/bin/env groovy
+pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION = "us-east-1"
+    }
+    stages {
+        stage("Create an EKS Cluster") {
+            steps {
+                script {
+                    dir('Terraform/eks') {
+                        sh "terraform init"
+                        sh "terraform apply -auto-approve"
+                    }
+                }
+            }
+        }  
+        stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('kubernetes') {
+                        sh "aws eks --region us-east-1 update-kubeconfig --name Eks-cluster"
+                        sh "kubectl apply -f complete-demo.yaml"
+                        sh "kubectl apply -f web-deployment.yml"
+                        sh "kubectl apply -f manifests-monitoring"
+                    }
+                }
+            }
+        }
+    }
+}
+
+```
+<br>
+
  Click on `Build now`. As the project rus you will see a stage view as shown below. You will also see the build number at the bottom under the `Build history` section.
 
 ![](images/JENKINS/jenkins-pipeline-success.png)
@@ -241,6 +283,11 @@ To see the console output and other information, click on the build number.
 - [Deploy EKS Cluster to AWS using Terraform](https://www.youtube.com/watch?v=yk_mm-hHirw&t=1s)
 - [CICD Pipeline to deploy Kubernetes Applications using Terraform, EKS, and Jenkins](https://www.youtube.com/watch?v=Mp6prDOhVg8&t=33s)
 - [https://github.com/frankisinfotech/terraform](https://github.com/frankisinfotech/terraform/blob/master/aws/eks/cluster.tf)
+
+
+
+
+
 
 
 
