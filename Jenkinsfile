@@ -39,8 +39,23 @@ pipeline {
         }
     }
 }
- 
 
+// stage("Destroy EKS Cluster") {
+//             when {
+//                 expression {
+//                     params.DESTROY_CLUSTER == false
+//                 }
+//             }
+//             steps {
+//                 script {
+//                     dir('Terraform/eks') {
+//                         sh "terraform destroy -auto-approve"
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
