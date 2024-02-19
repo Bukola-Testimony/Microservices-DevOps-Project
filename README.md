@@ -271,9 +271,31 @@ To see the console output and other information, click on the build number.
 
 ![](images/JENKINS/jenkins-pipeline-microservices.png)
 
+<br>
+
+### Final App output
+![](images/APP/micoservices3.png)
+![](images/APP/micoservices2.png)
+![](images/APP/micoservices.png)
+<br>
+
 
 <br>
+
+### Monitoring tools Output
+### Prometheus 
+![](images/PROMETHEUS/prometheus-dashboard-status-targets-endpoints-pods2.png)
+![](images/PROMETHEUS/prometheus-dashboard-status-targets-endpoints-pods.png)
+![](images/PROMETHEUS/prometheus-dashboard-status-targets.png)
 <br>
+
+### Grafana
+
+![](images/GRAFANA/grafana-query3.png)
+
+<br>
+
+
 
 ## Resources
 
